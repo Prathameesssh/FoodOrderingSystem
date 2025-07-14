@@ -11,6 +11,7 @@ import FoodItems.FoodItem;
 
 public class Invoice {
 
+    static int orderId = 1;
     public static void printInvoice(CustomerInformation customer, Map<FoodItem, Integer> cartItems, double total, String deliveryAgent, double discountedValue) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -21,6 +22,7 @@ public class Invoice {
         StringBuilder invoiceContent = new StringBuilder();
         invoiceContent.append("========== INVOICE ==========\n");
         invoiceContent.append("Date: ").append(formattedDate).append("\n");
+        invoiceContent.append("Order Id: ").append(orderId).append("\n");
         invoiceContent.append("Customer: ").append(customer.getName()).append("\n");
         invoiceContent.append("Phone: ").append(customer.getPhoneNumber()).append("\n");
         invoiceContent.append("Address: ").append(customer.getAddress()).append("\n");
@@ -28,6 +30,8 @@ public class Invoice {
         invoiceContent.append("Delivery Agent: ").append(deliveryAgent).append("\n");
         invoiceContent.append("-----------------------------\n");
         invoiceContent.append(String.format("%-30s %-10s %-10s %-10s\n", "Item", "Qty", "Price", "Total"));
+
+        orderId++;
 
         for (Map.Entry<FoodItem, Integer> entry : cartItems.entrySet()) {
             FoodItem item = entry.getKey();
